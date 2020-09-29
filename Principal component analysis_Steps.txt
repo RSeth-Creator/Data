@@ -1,0 +1,13 @@
+Step1: Get tha data set 
+Step2: Eleminate Catagorical attribute from the data set 
+Step3: Analyse the data 
+step4: Create 5 point plot for better understanding 
+Step5: Calculate mean for every attribute 
+Step6: Calculate variance and standered deviation for each attribute 
+Step7: Calculate zero means unit variance matrix 
+Step8: Calculate the corelation between attributes 
+Step9: Calculate eigen values  from covariance matrix 
+Step10: Sort in decending order and take first n number of values(which contribute more in pca) 
+Step11: Find out the eigen vectors  from covariance matrix 
+Step12: multiply covariance matrix with the main matrix
+Step13: Plot the graph for visualization
