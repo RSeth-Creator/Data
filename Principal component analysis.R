@@ -4,7 +4,7 @@ library(gridExtra)
 library(grid)
 library(tidyverse)
 library(GGally)
-?iris
+
 iris
 #Step1: get the dat set to R environment r 
 pca_ds<-tibble(iris)
@@ -81,17 +81,6 @@ ggpairs(data = tbl_iris,
 )
 
 
-#make_matrix <- function(df,rownames = NULL){
-#  my_matrix <-  as.matrix(df)
-#  if(!is.null(rownames))
-#   rownames(my_matrix) = rownames
-#  my_matrix
-#}
-#(my_tibble = tibble( row_names=1:10,a = 1:10, b = 11:20, c = 21:30))
-#(my_matrix <- make_matrix(select(my_tibble,-row_names),
-#                          pull(my_tibble,row_names)))
-
-
 #find out the co variance matrix 
 cov(as.matrix(tbl_iris))
 cov_matrix<-cov(as.matrix(tbl_pca))
@@ -115,7 +104,6 @@ ev
 
 # Step 10: selection on eigen values 
 diff(eigenvalues)
-diff(eigenvalues1)
 
 #the proportion of the total variance explained by the components.
 plot(eigenvalues, xlab = 'Eigenvalue Number', ylab = 'Eigenvalue Size', main = ' Graph')
@@ -135,43 +123,17 @@ for (cov_matrix in eigenvalues) {
 # PCA Analysis
 
 
-pc1 <- pca_ds$Sepal.Length * evt[1,1] +pca_ds$Sepal.Width*evt[1,2]+pca_ds$Petal.Length*evt[1,3]        +pca_ds$Petal.Width*evt[1,4]
+pc1 <- tbl_pca$sep_len * evt[1,1] + tbl_pca$sep_wid*evt[1,2]+ tbl_pca$pet_len*evt[1,3]  + tbl_pca$pet_wid*evt[1,4]
 pc1
 
-pc2 <- pca_ds$Sepal.Length * evt[2,1] + pca_ds$Sepal.Width*evt[2,2]+pca_ds$Petal.Length*evt[2,3]      +pca_ds$Petal.Width*evt[2,4]
+pc2 <- tbl_pca$sep_len * evt[2,1] + tbl_pca$sep_wid*evt[2,2]+tbl_pca$pet_len*evt[2,3]      +tbl_pca$pet_wid*evt[2,4]
 pc2
 
-pc3 <- pca_ds$Sepal.Length * evt[3,1] + pca_ds$Sepal.Width*evt[3,2]+pca_ds$Petal.Length*evt[3,3]
-+pca_ds$Petal.Width*evt[3,4]
-pc3
-
-pc4 <- pca_ds$Sepal.Length * evt[4,1] + pca_ds$Sepal.Width*evt[4,2]+pca_ds$Petal.Length*evt[4,3]+ pca_ds$Petal.Width*evt[4,4]
-pc4
-
-final<-tibble(pc1,pc2,pc3,pc4)
-final
 
 #Step 13: Graphical analysis
 
-par(mfrow=c(2,3))
+
 plot(pc1,pc2)
-plot(pc1,pc3)
-plot(pc1,pc4)
-
-plot(pc2,pc3)
-plot(pc2,pc1)
-plot(pc2,pc4)
-
-
-par(mfrow=c(2,3))
-plot(pc3,pc1)
-plot(pc3,pc2)
-plot(pc3,pc4)
-
-
-plot(pc4,pc1)
-plot(pc4,pc2)
-plot(pc4,pc3)
 
 q<-ggplot(data = pca_ds, aes(x = pc1, y = pc4, color = Species, shape = Species)) +
   geom_hline(yintercept = 0, lty = 2) +
@@ -208,47 +170,6 @@ data.pca$x
 plot(data.pca$x[,1], data.pca$x[,2], pch = 19)
 
 
-
-##don't count this is for test
-# Test purpose
-
-eigenvalues1 = eigen(cov(as.matrix(tbl_iris)))$values
-eigenvalues1
-max(eigenvalues1)
-ev1=eigen(cov(as.matrix(tbl_iris)))$vectors
-ev1
-
-
-pc11 <- pca_ds$Sepal.Length * ev1[1,1] + pca_ds$Sepal.Length*ev1[2,1]+pca_ds$Petal.Length*ev1[3,1]
-      +pca_ds$Petal.Width*ev1[4,1]
-pc11
-
-pc22 <- pca_ds$Sepal.Length * ev1[1,2] + pca_ds$Sepal.Length*ev1[2,2]+pca_ds$Petal.Length*ev1[3,2]
-        +pca_ds$Petal.Width*ev1[4,2]
-pc22
-
-  
-pc33 <- pca_ds$Sepal.Length * ev1[1,3] + pca_ds$Sepal.Length*ev1[2,3]+pca_ds$Petal.Length*ev1[3,3]
- +pca_ds$Petal.Width*ev1[4,3]
-pc33
-  
-pc44 <- pca_ds$Sepal.Length * ev1[1,4] + pca_ds$Sepal.Length*ev1[2,4]+pca_ds$Petal.Length*ev1[3,4]
-+pca_ds$Petal.Width*ev1[4,4]
-pc44
-  
-  
-  tibble(pc11,pc22,pc33,pc44)
-
-  par(mfrow=c(2,3))
-  plot(pc11,pc22)
-  plot(pc11,pc33)
-  plot(pc11,pc44)
-  
-  plot(pc22,pc33)
-  plot(pc22,pc11)
-  plot(pc22,pc44)
-
-  
 
 
 
