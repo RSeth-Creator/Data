@@ -151,7 +151,7 @@ p <- q + stat_ellipse(geom="polygon", aes(fill = Species),  alpha = 0.2, show.le
 p
 
 
-#** Using Prcomp pca analysis of  iris data 
+#** Using Prcomp pca analysis of  iris data #
 
 #The prcomp function takes in the data as input, and it is highly recommended to set the argument scale=TRUE.
 #This standardize the input data so that it has zero mean and variance one before doing PCA.
