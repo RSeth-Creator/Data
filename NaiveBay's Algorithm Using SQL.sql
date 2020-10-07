@@ -20,17 +20,22 @@ Insert into @NB values
 ('Overcast','Hot','Normal','False','Yes'),
 ('Rainy','Mild','High','True','No')
 
-declare @Outlook varchar(20)
+--Declare Variale to take data from user end 
+
+         declare @Outlook varchar(20)
 		,@Temperature varchar(20) 
 		,@Humidity Varchar(20)
 		,@Windy varchar(20)
 		,@Condition Varchar(20)
 
-	Set @Outlook='Sunny'
+--Sample input given
+        Set @Outlook='Sunny'
 	Set @Temperature='Hot' 
 	set @Humidity ='High'
 	set @Windy ='False'
 	set @Condition= 'No'
+
+--Calculate probability 
 
 		Declare @Yes int = (Select count(Play_sts)  from @NB where Play_sts='Yes'),
 				@NO int = (Select count(Play_sts)  from @NB where Play_sts='No')
@@ -38,11 +43,13 @@ declare @Outlook varchar(20)
 		Declare @Prob_Yes float =(select round((cast(@Yes as float)/(@Yes+@No)),3) ),
 				@Prob_No Float =(round(Cast(@No as float)/(@Yes+@No),3) )
 
-		declare @Prob_Outlook float =(select cast( count(Play_sts) as float)/@Yes  from @NB where Outlook=@Outlook and Play_sts=@Condition ),
+--calculate conditional probability 
+		declare         @Prob_Outlook float =(select cast( count(Play_sts) as float)/@Yes  from @NB where Outlook=@Outlook and Play_sts=@Condition ),
 				@Prob_Temperature float=(select cast( count(Play_sts) as float)/@Yes  from @NB where Temp=@Temperature and Play_sts=@Condition ),
 				@Prob_Humidity float=(select cast( count(Play_sts) as float)/@Yes  from @NB where Humdt=@Humidity and Play_sts=@Condition ),
-			    @Prob_Windy float=(select cast( count(Play_sts) as float)/@Yes  from @NB where Windy=@Windy and Play_sts=@Condition )
+			        @Prob_Windy float=(select cast( count(Play_sts) as float)/@Yes  from @NB where Windy=@Windy and Play_sts=@Condition )
 
+--Print the output of each probability 
 					if @Condition='Yes'
 						print 'P('+@Condition+') =  '+cast ( @Prob_Yes as varchar(20))
 					else 
@@ -52,7 +59,7 @@ declare @Outlook varchar(20)
 					Print 'p(Temperature= '+@Temperature+'|'+@Condition+') =  '+cast ( @Prob_Temperature as varchar(20))
 					Print 'p(Humidity= '+@Humidity+'|'+@Condition+') =  '+cast ( @Prob_Humidity as varchar(20))
 					Print 'p(Windy= '+@Windy+'|'+@Condition+') =  '+cast ( @Prob_Windy as varchar(20))
-					
+--Calculate Naive Bay's Output 					
 					Print'P('+@Condition+'|X) = '
 						if @Condition='Yes'
 							Print(@Prob_Outlook*@Prob_Temperature*@Prob_Humidity*@Prob_Windy*@Prob_Yes)
@@ -115,7 +122,7 @@ declare @Outlook varchar(20)
 --select * from Windy
 
 
-
+--Frequency & Probability table 
 ,Freq as (
 			select 'Outlook' as Attribute  ,Outlook as Status,Yes, No,round((cast(Yes as float)/@Yes),3) as Prob_Yes,Cast(No as float)/@No as Prob_No from Outlook
 					union
