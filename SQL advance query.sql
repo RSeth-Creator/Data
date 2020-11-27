@@ -79,6 +79,47 @@ PIVOT
  FOR name IN ([A], [B],[C])
 ) AS PivotTable;
 
+declare @test as table  (id int identity (1000,67) , name  varchar(20), income float )
+insert into @test values ('A',23000),('B',34000),('D',40000),('C',20000),('E',45000),('F',45000),('G',34000)
+
+--find the rank of a person 
+select * , RANK() over (order by income  desc) from @test
+
+--find the nth heighest income  
+select * , dense_RANK() over (order by income  desc) as rnk from @test 
+
+--find the row number in each partition 
+select *, row_number() over (partition by income order by income desc ) as rnk from @test 
+
+--running sum 
+select id, name ,income,sum(income) over (order by name ) as running_total from @test
+
+--running avg
+select id, name ,income,avg(income) over (order by name ) as running_total from @test 
+
+--running difference forward 
+;with cte as (
+select ID,lag(income,1,0) over (order by name) n  from @test
+)
+select  a.id, name, income,income-n
+from @test A 
+inner join 
+cte B 
+on A.id=B.id
+
+--running difference backward
+;with cte2 as (
+select ID,lead(income,1,0) over (order by name) n  from @test
+)
+select  a.id, name, income,income-n
+from @test A 
+inner join 
+cte2 B 
+on A.id=B.id
+
+
+
+
 
 
 
