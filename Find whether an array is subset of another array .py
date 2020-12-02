@@ -1,14 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
-
-
 import array as arr
-
-
-# In[97]:
-
 
 ##Initialize main array
 
@@ -22,11 +15,6 @@ print("final main array is:", end="")
 for i in main:
     print(i, end=" ")
     
-
-
-# In[109]:
-
-
 ##Initialize test  array
 
 test = arr.array('i', [])
@@ -39,11 +27,6 @@ print("final test array is:", end="")
 for j in test:
     print(j, end=" ")
     
-
-
-# In[110]:
-
-
 ## Check how many element of test present in the main array 
 
 temp=arr.array('i',[])
@@ -51,10 +34,6 @@ for k1 in range (0,len(test)):
     for k2 in range (0,len(main)):
         if(test[k1]== main[k2]):
             temp.append(test[k2])
-
-
-# In[114]:
-
 
 ##Element of test array present in main array is:
 
@@ -69,7 +48,6 @@ else:
     print("All the element of test array present in main array. Hence,Test array is subset of main array.")
 
 
-# In[ ]:
 
 
 
