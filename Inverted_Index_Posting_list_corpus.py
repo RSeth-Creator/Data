@@ -27,7 +27,8 @@ for i, doc in enumerate(df['tweets']):
          if l_term in posting_list:
             posting_list[l_term].add(df['doc_id'][i])
          else: posting_list[l_term] = {df['doc_id'][i]}
-         
+
+#Sorting the dictionary based on term
 posting_list = {key: val for key, val in sorted(posting_list.items(),
                                                 key = lambda x: x[0])}
 
