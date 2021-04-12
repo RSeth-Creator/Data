@@ -14,7 +14,7 @@ import nltk
 
 
 #Import english word dictionary from data world
-df = pd.read_csv('https://query.data.world/s/65ofulqys6udqlx3gwqvdkis7xqjlr')
+df = pd.read_csv('insert a file path ')
 df.head()
 
 
