@@ -5,6 +5,11 @@ Created on Thu Apr 15 18:34:27 2021
 @author: raj kumar seth 
 
 Item classification from amazon data 
+Dataset collected from data.world:
+ product_title,product_description,category
+  product_title,product_description--> string data type
+  category---> multiclass 
+  Applying techniques:Logistic Regression, Multinomial naive bays , support vector machine 
 """
 #Collect the data from data world 
 import datadotworld as dw
@@ -120,3 +125,41 @@ cv_df.groupby('model_name').accuracy.mean()
 
 svc = LinearSVC().fit(X_train_tfidf, y_train)
 print(svc.predict(count_vect.transform(["Harveys Crunchy  Creame Gourmet Delicacies Cream Wafer Biscuit 110 g Pouch Pack  Chocolate Flavoured "])))
+
+#Applying SVC to the dataset 
+model_svc = LinearSVC()
+X_train, X_test, y_train, y_test, indices_train, indices_test = train_test_split(features, labels, df.index, test_size=0.33, random_state=0)
+model_svc.fit(X_train, y_train)
+y_pred = model_svc.predict(X_test)
+
+from sklearn.metrics import confusion_matrix
+conf_mat = confusion_matrix(y_test, y_pred)
+fig, ax = plt.subplots(figsize=(10,10))
+sns.heatmap(conf_mat, annot=True, fmt='d',
+            xticklabels=category_id_df.category.values, yticklabels=category_id_df.category.values)
+plt.ylabel('Actual')
+plt.xlabel('Predicted')
+plt.show()
+
+print(accuracy_score(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+
+#Applying Naive bays 
+
+
+clf = MultinomialNB()
+X_train, X_test, y_train, y_test, indices_train, indices_test = train_test_split(features, labels, df.index, test_size=0.33, random_state=0)
+clf.fit(X_train, y_train)
+y_pred = clf.predict(X_test)
+
+from sklearn.metrics import confusion_matrix
+conf_mat = confusion_matrix(y_test, y_pred)
+fig, ax = plt.subplots(figsize=(10,10))
+sns.heatmap(conf_mat, annot=True, fmt='d',
+            xticklabels=category_id_df.category.values, yticklabels=category_id_df.category.values)
+plt.ylabel('Actual')
+plt.xlabel('Predicted')
+plt.show()
+
+print(accuracy_score(y_test, y_pred))
+print(classification_report(y_test, y_pred))
