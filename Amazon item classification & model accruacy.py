@@ -130,6 +130,7 @@ plt.show()
 #finding out the accuracy mean for all the classification model 
 cv_df.groupby('model_name').accuracy.mean()
 
+#Check if the model is doing good
 svc = LinearSVC().fit(X_train_tfidf, y_train)
 print(svc.predict(count_vect.transform(["Harveys Crunchy  Creame Gourmet Delicacies Cream Wafer Biscuit 110 g Pouch Pack  Chocolate Flavoured "])))
 
