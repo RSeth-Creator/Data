@@ -94,7 +94,21 @@ def rec(name,cos_sim=cos_sim):
         rec_name.append(list(u_df.index)[i])
     return rec_name                   
                    
-#rec('Appa')      
+#rec('Appa')   
+
+#Plot a graph to find the community 
+import networkx as nx 
+
+results = dw.query(
+	'datafiniti/amazon-and-best-buy-electronics', 
+    'SELECT brand,reviews_username FROM datafinitielectronicsproductdata ')
+net = results.dataframe
+G = nx.from_pandas_edgelist(net,source ='reviews_username' ,target ='brand' )
+
+nx.draw(G,with_labels = False)
+
+
+
 
 
 
