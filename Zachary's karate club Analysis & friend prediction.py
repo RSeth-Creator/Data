@@ -88,21 +88,61 @@ df3= pd.merge(df2, t_ecc, on='node', how='left')
 df4= pd.merge(df3, t_deg, on='node', how='left')
 details=pd.merge(df4, c_coeff, on='node', how='left')
 
-plt.scatter(details['node'], details['Eigenvalue_Centrality'],color='blue',alpha=0.6)
-plt.scatter(details['node'], details['Betweenness_Centrality'],color='red')
-plt.scatter(details['node'], details['Closeness_Centrality'],color='green')
-plt.scatter(details['node'], details['Degree_Centrality'],color='yellow')
+plt.scatter(details['node'], details['Degree_Centrality'],
+            s=details['Degree_Centrality']*1000,alpha=0.5,color='black')
+plt.scatter(details['node'], details['Closeness_Centrality'],
+            s=details['Closeness_Centrality']*1000,alpha=0.5,color='Red')
+plt.scatter(details['node'], details['Betweenness_Centrality'],
+            s=details['Betweenness_Centrality']*1000,alpha=0.5,color='Green')
+plt.scatter(details['node'], details['Eigenvalue_Centrality'],
+            s=details['Eigenvalue_Centrality']*1000,alpha=0.5,color='Blue')
+
+plt.xlabel('Node Number')
+plt.ylabel('Centrality')
 plt.show()
-plt.scatter(details['node'], details['Clustering_Coeff'],color='red')
+
+
+
+plt.scatter(details['node'], details['Degree_Centrality'],
+            s=details['Degree_Centrality']*1000,alpha=0.5,color='black')
+plt.xlabel('Node Number')
+plt.ylabel('Degree centrality')
+plt.title('Node vs Degree centrality')
 plt.show()
-plt.scatter(details['node'], details['Eigenvalue_Centrality'],color='blue')
+
+
+plt.scatter(details['node'], details['Clustering_Coeff'],
+            s=details['Clustering_Coeff']*1000,alpha=0.5,color='Red')
+plt.xlabel('Node Number')
+plt.ylabel('Clustering_Coeff')
+plt.title('Node vs Clustering_Coeff')
 plt.show()
-plt.scatter(details['node'], details['Betweenness_Centrality'],color='red')
+
+
+
+plt.scatter(details['node'], details['Eigenvalue_Centrality'],
+            s=details['Eigenvalue_Centrality']*1000,alpha=0.5,color='Red')
+plt.xlabel('Node Number')
+plt.ylabel('Eigenvalue_Centrality')
+plt.title('Node vs Eigenvalue_Centrality')
 plt.show()
-plt.scatter(details['node'], details['Closeness_Centrality'],color='green')
+
+plt.scatter(details['node'], details['Betweenness_Centrality'],
+            s=details['Betweenness_Centrality']*1000,alpha=0.5,color='Green')
+plt.xlabel('Node Number')
+plt.ylabel('Betweenness_Centrality')
+plt.title('Node vs Betweenness_Centrality')
 plt.show()
-plt.scatter(details['node'], details['Degree_Centrality'],color='yellow')
+
+plt.scatter(details['node'], details['Closeness_Centrality'],
+            s=details['Closeness_Centrality']*1000,alpha=0.5,color='blue')
+plt.xlabel('Node Number')
+plt.ylabel('Closeness_Centrality')
+plt.title('Node vs Closeness_Centrality')
 plt.show()
+
+
+
 
 
 #common neighbour
