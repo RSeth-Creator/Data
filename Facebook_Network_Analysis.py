@@ -139,7 +139,7 @@ def recom(id):
 import networkx.algorithms.community as nxcom
 communities = sorted(nxcom.greedy_modularity_communities(g), key=len, reverse=True)
     # Count the communities
-print(f"The karate club has {len(communities)} communities.")
+print(f"Number of communities {len(communities)} communities.")
 
 
 
