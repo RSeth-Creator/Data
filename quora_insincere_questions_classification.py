@@ -13,14 +13,73 @@ Classification techniques: Naive bays ,Logistic regression
 """
 
 import pandas as pd 
+import matplotlib.pyplot as plt
+import seaborn as sns
+import matplotlib.pyplot as plt
+from wordcloud import WordCloud,STOPWORDS
+
 df_raw = pd.read_csv(r'C:\Users\rajse\OneDrive\Documents\Python Scripts\Machine Learning\data\quora_insincere_questions.csv')
 
 df=df_raw.head(5000)
 #plotting item vs individual catagory 
-import matplotlib.pyplot as plt
+
 fig = plt.figure(figsize=(8,6))
 df.groupby('target').question_text.count().plot.bar(ylim=0)
 plt.show()
+
+
+
+t1=df.query('target==1')
+t2=df.query('target==0')
+
+#Plotting the wordcloud for all dataset
+stopwords = set(STOPWORDS)
+
+wordcloud1 =  WordCloud(width = 800, height = 800,
+                background_color ='white',
+                stopwords = stopwords,
+                min_font_size = 10).generate(' '.join(df['question_text']))
+
+
+# plot the WordCloud image                       
+plt.figure(figsize = (8, 8), facecolor = None)
+plt.imshow(wordcloud1)
+plt.axis("off")
+plt.tight_layout(pad = 0)
+  
+plt.show()
+
+#Word cloud with Target=1/Insincere Questions
+wordcloud2 =  WordCloud(width = 800, height = 800,
+                background_color ='white',
+                stopwords = stopwords,
+                min_font_size = 10).generate(' '.join(t1['question_text']))
+
+
+# plot the WordCloud image                       
+plt.figure(figsize = (8, 8), facecolor = None)
+plt.imshow(wordcloud2)
+plt.axis("off")
+plt.tight_layout(pad = 0)
+  
+plt.show()
+
+#Word cloud with Target=0/sincere Questions
+wordcloud3 =  WordCloud(width = 800, height = 800,
+                background_color ='white',
+                stopwords = stopwords,
+                min_font_size = 10).generate(' '.join(t2['question_text']))
+
+
+# plot the WordCloud image                       
+plt.figure(figsize = (8, 8), facecolor = None)
+plt.imshow(wordcloud3)
+plt.axis("off")
+plt.tight_layout(pad = 0)
+  
+plt.show()
+
+
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 tfidf = TfidfVectorizer( ngram_range=(1, 2), stop_words='english')
